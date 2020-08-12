@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import userContext from "../context/UserContext";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { Button, TextField, makeStyles } from "@material-ui/core";
 
 const Login = () => {
   const [user, setUser] = useContext(userContext);
@@ -69,13 +70,59 @@ const Login = () => {
       }
     }
   };
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "& .MuiTextField-root": {
+        margin: theme.spacing(1),
+        width: "25ch",
+      },
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "white",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "white",
+        },
+        "&:hover fieldset": {
+          borderColor: "white",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "white",
+        },
+      },
+    },
+    input: {
+      color: "white",
+    },
+    floatingLabelFocusStyle: {
+      color: "gray",
+    },
+  }));
+  const classes = useStyles();
 
   return (
     <>
       <div className="content">
-        <form className="loginForm" onSubmit={handleSubmit}>
+        <h2>Login here!</h2>
+        <form
+          className="loginForm"
+          className={classes.root}
+          onSubmit={handleSubmit}
+        >
           <label>Username: </label>
-          <input
+          <TextField
+            InputLabelProps={{
+              className: classes.floatingLabelFocusStyle,
+            }}
+            InputProps={{
+              className: classes.input,
+            }}
+            color="white"
+            variant="outlined"
+            label="username"
             type="text"
             name="username"
             onChange={handleChange}
@@ -83,19 +130,46 @@ const Login = () => {
           />
           <br />
           <label>Password: </label>
-          <input
+          <TextField
+            InputLabelProps={{
+              className: classes.floatingLabelFocusStyle,
+            }}
+            InputProps={{
+              className: classes.input,
+            }}
+            variant="outlined"
+            label="password"
             type="password"
             name="password"
             onChange={handleChange}
             value={input.password}
           />
           <br />
-          <button>Login</button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "20px" }}
+            type="Submit"
+          >
+            Login
+          </Button>
         </form>
-        <form className="makeAccount" onSubmit={handleCreate}>
+        <form
+          className="makeAccount"
+          className={classes.root}
+          onSubmit={handleCreate}
+        >
           <h2>Don't have any account yet? Make one here!</h2>
           <label>new Username: </label>
-          <input
+          <TextField
+            InputLabelProps={{
+              className: classes.floatingLabelFocusStyle,
+            }}
+            InputProps={{
+              className: classes.input,
+            }}
+            label="new username"
+            variant="outlined"
             type="text"
             name="createUsername"
             onChange={handleChange}
@@ -103,14 +177,29 @@ const Login = () => {
           />
           <br />
           <label>new Password: </label>
-          <input
+          <TextField
+            InputLabelProps={{
+              className: classes.floatingLabelFocusStyle,
+            }}
+            InputProps={{
+              className: classes.input,
+            }}
+            variant="outlined"
+            label="new password"
             type="password"
             name="createPassword"
             onChange={handleChange}
             value={input.createPassword}
           />
           <br />
-          <button>Create Account</button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "20px" }}
+            type="Submit"
+          >
+            Create Account
+          </Button>
         </form>
       </div>
     </>

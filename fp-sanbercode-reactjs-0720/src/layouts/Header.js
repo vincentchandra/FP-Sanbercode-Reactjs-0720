@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import Login from "../pages/Login";
+import Movies from "../pages/Movies";
+import Games from "../pages/Games";
 import logo from "../img/logo.png";
 
 const Header = () => {
@@ -51,9 +53,10 @@ const Header = () => {
           </ul>
         </nav>
       </header>
+      {user && <h1 style={{ marginLeft: "20px" }}>Hello, {user.username}!</h1>}
       <Switch>
-        <Route path="/movies" />
-        <Route path="/games" />
+        <Route path="/movies" component={Movies} />
+        <Route path="/games" component={Games} />
         <Route path="/edit" />
         <Route path="/login" component={Login} />
         <Route path="/" />
