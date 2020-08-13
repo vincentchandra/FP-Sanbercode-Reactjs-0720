@@ -8,6 +8,7 @@ import logo from "../img/logo.png";
 import Edit from "../pages/Edit";
 import MovieDetail from "../pages/MovieDetail";
 import GameDetail from "../pages/GameDetail";
+import Account from "../pages/Account";
 
 const Header = () => {
   const [user, setUser] = useContext(UserContext);
@@ -52,7 +53,9 @@ const Header = () => {
             )}
             {user && (
               <li>
-                <a onClick={handleLogout}>Logout</a>
+                <Link className="link" to="/account">
+                  Account
+                </Link>
               </li>
             )}
           </ul>
@@ -66,6 +69,7 @@ const Header = () => {
         <Route exact path="/games/:id" component={GameDetail} />
         <Route exact path="/edit" component={Edit} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/account" component={Account} />
         <Route exact path="/" component={Movies} />
       </Switch>
     </>

@@ -23,10 +23,15 @@ const Login = () => {
       })
       .then((res) => {
         if (res.data.id) {
-          setUser({ username: input.username });
+          setUser({
+            id: res.data.id,
+            username: input.username,
+            password: input.password,
+          });
           localStorage.setItem(
             "user",
             JSON.stringify({
+              id: res.data.id,
               username: input.username,
               password: input.password,
             })

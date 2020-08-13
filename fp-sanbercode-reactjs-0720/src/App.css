@@ -5,6 +5,7 @@
 body {
   color: white;
   background-color: rgb(9, 33, 63);
+  display: block;
 }
 
 .content {
@@ -100,6 +101,21 @@ header nav ul li:hover {
 .Sidebar img {
   max-height: 200px;
   border-radius: 20px;
+}
+
+.changePassword {
+  margin-top: 100px;
+}
+
+.footer {
+  float: left;
+  margin-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* background-color: rgb(4, 21, 41); */
+  background-color: rgb(7, 28, 53);
+  text-align: center;
+  width: 100%;
 }
 
 @media only screen and (max-width: 800px) {
