@@ -5,6 +5,9 @@ import Login from "../pages/Login";
 import Movies from "../pages/Movies";
 import Games from "../pages/Games";
 import logo from "../img/logo.png";
+import Edit from "../pages/Edit";
+import MovieDetail from "../pages/MovieDetail";
+import GameDetail from "../pages/GameDetail";
 
 const Header = () => {
   const [user, setUser] = useContext(UserContext);
@@ -17,7 +20,9 @@ const Header = () => {
     <>
       <header>
         <div className="logo">
-          <img src={logo} alt="logo" className="logo" />
+          <Link className="link" to="/">
+            <img src={logo} alt="logo" className="logo" />
+          </Link>
         </div>
         <nav>
           <ul>
@@ -55,11 +60,13 @@ const Header = () => {
       </header>
       {user && <h1 style={{ marginLeft: "20px" }}>Hello, {user.username}!</h1>}
       <Switch>
-        <Route path="/movies" component={Movies} />
-        <Route path="/games" component={Games} />
-        <Route path="/edit" />
-        <Route path="/login" component={Login} />
-        <Route path="/" />
+        <Route exact path="/movies" component={Movies} />
+        <Route exact path="/movies/:id" component={MovieDetail} />
+        <Route exact path="/games" component={Games} />
+        <Route exact path="/games/:id" component={GameDetail} />
+        <Route exact path="/edit" component={Edit} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Movies} />
       </Switch>
     </>
   );

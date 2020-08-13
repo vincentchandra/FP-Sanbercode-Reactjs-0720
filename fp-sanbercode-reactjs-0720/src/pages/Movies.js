@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import MovieDetail from "./MovieDetail";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
 const Movies = () => {
   const [movies, setMovies] = useState(null);
@@ -35,10 +43,15 @@ const Movies = () => {
               <>
                 <div className="card">
                   <div className="cardHead">
-                    <img src={el.image_url}></img>
+                    <Link className="detail" to={`/movies/${el.id}`}>
+                      <img src={el.image_url}></img>
+                    </Link>
                   </div>
                   <div className="judul">
-                    <h2>{el.title}</h2>
+                    <Link className="detail" to={`/movies/${el.id}`}>
+                      <h2>{el.title}</h2>
+                    </Link>
+
                     <h2>{el.rating}&#9734;</h2>
                   </div>
                 </div>

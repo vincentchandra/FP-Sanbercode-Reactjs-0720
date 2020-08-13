@@ -16,20 +16,29 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let success = false;
-
-    if (input.username === "admin" && input.password === "admin") {
-      setUser({ username: input.username });
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ username: input.username, password: input.password })
-      );
-      setInput({ ...input, username: "", password: "" });
-      alert("Login Successful!");
-      history.push("/");
-    } else {
-      alert("Wrong username or password!");
-    }
+    axios
+      .post(`https://backendexample.sanbersy.com/api/login`, {
+        username: input.username,
+        password: input.password,
+      })
+      .then((res) => {
+        if (res.data.id) {
+          setUser({ username: input.username });
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              username: input.username,
+              password: input.password,
+            })
+          );
+          setInput({ ...input, username: "", password: "" });
+          alert("Login Successful!");
+          history.push("/");
+        } else {
+          alert("Wrong username or password!");
+        }
+      });
+    setInput({ ...input, username: "", password: "" });
   };
 
   const handleCreate = (event) => {
@@ -37,12 +46,11 @@ const Login = () => {
     let date = new Date().toLocaleString();
     axios.post(`https://backendexample.sanbersy.com/api/users`, {
       created_at: date,
-      updated_at: date,
       username: input.createUsername,
       password: input.createPassword,
     });
     setInput({ ...input, createUsername: "", createPassword: "" });
-    alert("Account created");
+    alert("Account created!");
   };
 
   const handleChange = (event) => {

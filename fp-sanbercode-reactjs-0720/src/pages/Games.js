@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
 const Games = () => {
   const [games, setGames] = useState(null);
@@ -32,7 +39,10 @@ const Games = () => {
               <>
                 <div className="card">
                   <div className="judul">
-                    <h2>{el.name}</h2>
+                    <Link className="detail" to={`/games/${el.id}`}>
+                      <h2>{el.name}</h2>
+                    </Link>
+
                     <h2>{el.platform}</h2>
                   </div>
                 </div>
