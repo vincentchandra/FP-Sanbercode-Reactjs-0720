@@ -18,6 +18,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import AddIcon from "@material-ui/icons/Add";
+import FilterListIcon from "@material-ui/icons/FilterList";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -67,8 +69,8 @@ const Edit = () => {
               id: el.id,
               name: el.name,
               singlePlayer: el.singlePlayer,
-              multiPlayer: el.multiPlayer,
-              genre_game: el.genre,
+              multiplayer: el.multiplayer,
+              genre: el.genre,
               platform: el.platform,
               release: el.release,
             };
@@ -80,6 +82,8 @@ const Edit = () => {
   const [open, setOpen] = React.useState({
     movie: false,
     game: false,
+    filterMovie: false,
+    filterGame: false,
   });
 
   const handleClickOpenMovie = () => {
@@ -108,14 +112,38 @@ const Edit = () => {
     setInput({
       ...input,
       name: "",
-      genre_game: "",
+      genre: "",
       singlePlayer: "",
-      multiPlayer: "",
+      multiplayer: "",
       platform: "",
       release: "",
     });
     setSelectedId(-1);
     setOpen({ ...open, game: false });
+  };
+
+  const handleClickOpenFilterMovie = () => {
+    setOpen({ ...open, filterMovie: true });
+  };
+  const handleCloseFilterMovie = () => {
+    setInput({
+      ...input,
+      minYear: "",
+      maxYear: "",
+    });
+    setOpen({ ...open, filterMovie: false });
+  };
+  const handleClickOpenFilterGame = () => {
+    setOpen({ ...open, filterGame: true });
+  };
+  const handleCloseFilterGame = () => {
+    setInput({
+      ...input,
+      singlePlayer: "",
+      multiplayer: "",
+      release: "",
+    });
+    setOpen({ ...open, filterGame: false });
   };
   const [input, setInput] = useState({
     title: "",
@@ -127,10 +155,18 @@ const Edit = () => {
     image_url: "",
     name: "",
     singlePlayer: "",
-    multiPlayer: "",
-    genre_game: "",
+    multiplayer: "",
+    genre: "",
     platform: "",
     release: "",
+    minYear: "",
+    maxYear: "",
+    minRating: "",
+    maxRating: "",
+    filterSinglePlayer: "",
+    filterMultiPlayer: "",
+    minRelease: "",
+    maxRelease: "",
   });
   const handleChange = (event) => {
     let value = event.target.value;
@@ -168,16 +204,16 @@ const Edit = () => {
         setInput({ ...input, name: value });
         break;
       }
-      case "genre_game": {
-        setInput({ ...input, genre_game: value });
+      case "genre": {
+        setInput({ ...input, genre: value });
         break;
       }
       case "singlePlayer": {
         setInput({ ...input, singlePlayer: value });
         break;
       }
-      case "multiPlayer": {
-        setInput({ ...input, multiPlayer: value });
+      case "multiplayer": {
+        setInput({ ...input, multiplayer: value });
         break;
       }
 
@@ -187,6 +223,38 @@ const Edit = () => {
       }
       case "release": {
         setInput({ ...input, release: value });
+        break;
+      }
+      case "minYear": {
+        setInput({ ...input, minYear: value });
+        break;
+      }
+      case "maxYear": {
+        setInput({ ...input, maxYear: value });
+        break;
+      }
+      case "minRating": {
+        setInput({ ...input, minRating: value });
+        break;
+      }
+      case "maxRating": {
+        setInput({ ...input, maxRating: value });
+        break;
+      }
+      case "filterSinglePlayer": {
+        setInput({ ...input, filterSinglePlayer: value });
+        break;
+      }
+      case "filterMultiPlayer": {
+        setInput({ ...input, filterMultiPlayer: value });
+        break;
+      }
+      case "minRelease": {
+        setInput({ ...input, minRelease: value });
+        break;
+      }
+      case "maxRelease": {
+        setInput({ ...input, maxRelease: value });
         break;
       }
       default: {
@@ -273,9 +341,9 @@ const Edit = () => {
         .post(`https://backendexample.sanbersy.com/api/games`, {
           created_at: date,
           name: input.name,
-          genre_game: input.genre_game,
+          genre: input.genre,
           singlePlayer: input.singlePlayer,
-          multiPlayer: input.multiPlayer,
+          multiplayer: input.multiplayer,
           release: input.release,
           platform: input.platform,
         })
@@ -286,9 +354,9 @@ const Edit = () => {
               created_at: date,
               id: res.data.id,
               name: input.name,
-              genre_game: input.genre_game,
+              genre: input.genre,
               singlePlayer: input.singlePlayer,
-              multiPlayer: input.multiPlayer,
+              multiplayer: input.multiplayer,
               release: input.release,
               platform: input.platform,
             },
@@ -301,18 +369,18 @@ const Edit = () => {
         .put(`http://backendexample.sanbercloud.com/api/games/${selectedId}`, {
           updated_at: date,
           name: input.name,
-          genre_game: input.genre_game,
+          genre: input.genre,
           singlePlayer: input.singlePlayer,
-          multiPlayer: input.multiPlayer,
+          multiplayer: input.multiplayer,
           platform: input.platform,
           release: input.release,
         })
         .then((res) => {
           let dataGame = games.find((el) => el.id === selectedId);
           dataGame.name = input.name;
-          dataGame.genre_game = input.genre_game;
+          dataGame.genre = input.genre;
           dataGame.singlePlayer = input.singlePlayer;
-          dataGame.multiPlayer = input.multiPlayer;
+          dataGame.multiplayer = input.multiplayer;
           dataGame.platform = input.platform;
           dataGame.release = input.release;
           setGames([...games]);
@@ -322,9 +390,9 @@ const Edit = () => {
     setInput({
       ...input,
       name: "",
-      genre_game: "",
+      genre: "",
       singlePlayer: "",
-      multiPlayer: "",
+      multiplayer: "",
       platform: "",
       release: "",
     });
@@ -377,12 +445,86 @@ const Edit = () => {
     setInput({
       ...input,
       name: selectedGame.name,
-      genre_game: selectedGame.genre_game,
+      genre: selectedGame.genre,
       singlePlayer: selectedGame.singlePlayer,
-      multiPlayer: selectedGame.multiPlayer,
+      multiplayer: selectedGame.multiplayer,
       platform: selectedGame.platform,
       release: selectedGame.release,
     });
+  };
+
+  const handleSubmitFilterMovie = (event) => {
+    event.preventDefault();
+    if (input.minYear == "") {
+      input.minYear = -1;
+    }
+    if (input.minRating == "") {
+      input.minRating = -1;
+    }
+    if (input.maxYear == "") {
+      input.maxYear = 9999999;
+    }
+    if (input.maxRating == "") {
+      input.maxRating = 9999999;
+    }
+    axios.get(`https://backendexample.sanbersy.com/api/movies`).then((res) => {
+      console.log(res.data);
+      setMovies(
+        res.data.filter(
+          (el) =>
+            el.year >= input.minYear &&
+            el.year <= input.maxYear &&
+            el.rating >= input.minRating &&
+            el.rating <= input.maxRating
+        )
+      );
+    });
+    setInput({
+      ...input,
+      minYear: "",
+      maxYear: "",
+      minRating: "",
+      maxRating: "",
+    });
+    setOpen({ ...open, filterMovie: false });
+  };
+  const handleSubmitFilterGame = (event) => {
+    event.preventDefault();
+    if (input.filterSinglePlayer == "") {
+      input.filterSinglePlayer = -1;
+    }
+    if (input.filterMultiPlayer == "") {
+      input.filterMultiPlayer = -1;
+    }
+    if (input.minRelease == "") {
+      input.minRelease = -1;
+    }
+    if (input.maxRelease == "") {
+      input.maxRelease = 9999999;
+    }
+    axios.get(`https://backendexample.sanbersy.com/api/games`).then((res) => {
+      console.log(res.data);
+      setGames(
+        res.data.filter(
+          (el) =>
+            (el.singlePlayer == input.filterSinglePlayer ||
+              input.filterSinglePlayer == -1) &&
+            (el.multiplayer == input.filterMultiPlayer ||
+              input.filterMultiPlayer == -1) &&
+            el.release >= input.minRelease &&
+            el.release <= input.maxRelease
+        )
+      );
+    });
+
+    setInput({
+      ...input,
+      filterSinglePlayer: "",
+      filterMultiPlayer: "",
+      minRelease: "",
+      maxRelease: "",
+    });
+    setOpen({ ...open, filterGame: false });
   };
 
   return (
@@ -399,6 +541,7 @@ const Edit = () => {
               variant="contained"
               color="secondary"
               onClick={handleClickOpenMovie}
+              endIcon={<AddIcon />}
             >
               Add Movie
             </Button>
@@ -491,8 +634,73 @@ const Edit = () => {
             </Dialog>
           </div>
           <h1>Movies Table</h1>
+          <Button
+            variant="contained"
+            className="buttonFilter"
+            onClick={handleClickOpenFilterMovie}
+            endIcon={<FilterListIcon />}
+          >
+            Filter
+          </Button>
+          <Dialog
+            open={open.filterMovie}
+            onClose={handleCloseFilterMovie}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle>Filter Movie Data</DialogTitle>
+            <DialogContent>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Minimum Year"
+                type="number"
+                name="minYear"
+                onChange={handleChange}
+                value={input.minYear}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Maximum year"
+                type="number"
+                name="maxYear"
+                onChange={handleChange}
+                value={input.maxYear}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Minimum Rating"
+                type="number"
+                name="minRating"
+                onChange={handleChange}
+                value={input.minRating}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Maximum Rating"
+                type="number"
+                name="maxRating"
+                onChange={handleChange}
+                value={input.maxRating}
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseFilterMovie} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleSubmitFilterMovie} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
 
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} className="tableData">
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -551,6 +759,7 @@ const Edit = () => {
               variant="contained"
               color="secondary"
               onClick={handleClickOpenGame}
+              endIcon={<AddIcon />}
             >
               Add Game
             </Button>
@@ -578,9 +787,9 @@ const Edit = () => {
                   margin="dense"
                   label="Genre"
                   type="text"
-                  name="genre_game"
+                  name="genre"
                   onChange={handleChange}
-                  value={input.genre_game}
+                  value={input.genre}
                   fullWidth
                 />
                 <TextField
@@ -598,9 +807,9 @@ const Edit = () => {
                   margin="dense"
                   label="Multi Player"
                   type="number"
-                  name="multiPlayer"
+                  name="multiplayer"
                   onChange={handleChange}
-                  value={input.mulitPlayer}
+                  value={input.multiplayer}
                   fullWidth
                 />
                 <TextField
@@ -635,8 +844,73 @@ const Edit = () => {
             </Dialog>
           </div>
           <h1>Games Table</h1>
+          <Button
+            variant="contained"
+            className="buttonFilter"
+            onClick={handleClickOpenFilterGame}
+            endIcon={<FilterListIcon />}
+          >
+            Filter
+          </Button>
+          <Dialog
+            open={open.filterGame}
+            onClose={handleCloseFilterGame}
+            aria-labelledby="form-dialog-title"
+          >
+            <DialogTitle>Filter Game Data</DialogTitle>
+            <DialogContent>
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Single Player"
+                type="number"
+                name="filterSinglePlayer"
+                onChange={handleChange}
+                value={input.filterSinglePlayer}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Multi Player"
+                type="number"
+                name="filterMultiPlayer"
+                onChange={handleChange}
+                value={input.filterMultiPlayer}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Minimum Release"
+                type="number"
+                name="minRelease"
+                onChange={handleChange}
+                value={input.minRelease}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="Maximum Release"
+                type="number"
+                name="maxRelease"
+                onChange={handleChange}
+                value={input.maxRelease}
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseFilterGame} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleSubmitFilterGame} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
 
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} className="tableData">
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -678,9 +952,9 @@ const Edit = () => {
                       <TableCell component="th" scope="row">
                         {el.name}
                       </TableCell>
-                      <TableCell align="right">{el.genre_game}</TableCell>
+                      <TableCell align="right">{el.genre}</TableCell>
                       <TableCell align="right">{el.singlePlayer}</TableCell>
-                      <TableCell align="right">{el.multiPlayer}</TableCell>
+                      <TableCell align="right">{el.multiplayer}</TableCell>
                       <TableCell align="right">{el.platform}</TableCell>
                       <TableCell align="right">{el.release}</TableCell>
                     </TableRow>

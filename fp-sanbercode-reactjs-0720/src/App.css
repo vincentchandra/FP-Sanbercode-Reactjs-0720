@@ -97,6 +97,7 @@ header nav ul li:hover {
   border-right: 1px solid white;
   float: left;
   width: 20%;
+  height: 100%;
 }
 .Sidebar img {
   max-height: 200px;
@@ -105,6 +106,9 @@ header nav ul li:hover {
 
 .changePassword {
   margin-top: 100px;
+}
+.tableData {
+  margin-top: 85px;
 }
 
 .footer {
@@ -118,8 +122,14 @@ header nav ul li:hover {
   width: 100%;
 }
 
+.buttonFilter {
+  float: right;
+  margin-bottom: 30px;
+}
+
 @media only screen and (max-width: 800px) {
   .Sidebar {
+    border: 0;
     float: none;
     width: 100%;
   }
@@ -140,6 +150,9 @@ header nav ul li:hover {
   .Sidebar p {
     width: 60%;
   }
+  .Sidebar {
+    border: 0;
+  }
   nav {
     width: 60%;
   }
@@ -158,7 +171,7 @@ header nav ul li:hover {
 }
 
 .card img {
-  width: 100%;
+  width: 40%;
 }
 .card .judul {
   padding: 20px;
