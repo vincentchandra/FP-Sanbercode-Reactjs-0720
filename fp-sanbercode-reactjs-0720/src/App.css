@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela&display=swap");
+
 * {
   font-family: "Varela", sans-serif;
 }
@@ -10,9 +11,7 @@ body {
 
 .content {
   box-sizing: border-box;
-  padding-right: 20px;
-  padding-top: 60px;
-  padding-left: 50px;
+  padding: 20px;
   float: right;
   width: 80%;
 }
@@ -126,15 +125,29 @@ header nav ul li:hover {
   float: right;
   margin-bottom: 30px;
 }
+.social img {
+  height: 50px;
+}
+.imageDetail {
+  max-height: 300px;
+}
 
-@media only screen and (max-width: 800px) {
-  .Sidebar {
-    border: 0;
+.sort {
+  /* style={{flex: '1 0 0'}} */
+  flex: 1 0 0;
+}
+.social img {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .content {
+    box-sizing: border-box;
     float: none;
     width: 100%;
   }
-  .content {
-    box-sizing: border-box;
+  .Sidebar {
+    border: 0;
     float: none;
     width: 100%;
   }
@@ -145,6 +158,10 @@ header nav ul li:hover {
     width: 70%;
     float: right;
   }
+  .social {
+    margin-top: 250px;
+    width: 100%;
+  }
 }
 @media only screen and (max-width: 576px) {
   .Sidebar p {
@@ -154,7 +171,8 @@ header nav ul li:hover {
     border: 0;
   }
   nav {
-    width: 60%;
+    width: 80%;
+    margin-right: 30px;
   }
   header nav ul li {
     text-align: center;
@@ -162,6 +180,11 @@ header nav ul li:hover {
     font-size: 14px;
     width: 50px;
     vertical-align: middle;
+    color: black;
+  }
+  .logo {
+    padding-left: 0;
+    margin-left: -10px;
   }
 }
 
@@ -171,10 +194,10 @@ header nav ul li:hover {
 }
 
 .card img {
-  width: 40%;
+  height: 400px;
 }
 .card .judul {
-  padding: 20px;
+  padding: 20px 0;
   justify-content: space-between;
   display: flex;
   text-decoration: none;

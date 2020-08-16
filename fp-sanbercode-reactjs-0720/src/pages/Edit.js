@@ -73,6 +73,7 @@ const Edit = () => {
               genre: el.genre,
               platform: el.platform,
               release: el.release,
+              image_url: el.image_url,
             };
           })
         );
@@ -117,6 +118,7 @@ const Edit = () => {
       multiplayer: "",
       platform: "",
       release: "",
+      image_url: "",
     });
     setSelectedId(-1);
     setOpen({ ...open, game: false });
@@ -346,6 +348,7 @@ const Edit = () => {
           multiplayer: input.multiplayer,
           release: input.release,
           platform: input.platform,
+          image_url: input.image_url,
         })
         .then((res) => {
           setGames([
@@ -359,6 +362,7 @@ const Edit = () => {
               multiplayer: input.multiplayer,
               release: input.release,
               platform: input.platform,
+              image_url: input.image_url,
             },
           ]);
         });
@@ -374,6 +378,7 @@ const Edit = () => {
           multiplayer: input.multiplayer,
           platform: input.platform,
           release: input.release,
+          image_url: input.image_url,
         })
         .then((res) => {
           let dataGame = games.find((el) => el.id === selectedId);
@@ -383,6 +388,7 @@ const Edit = () => {
           dataGame.multiplayer = input.multiplayer;
           dataGame.platform = input.platform;
           dataGame.release = input.release;
+          dataGame.image_url = input.image_url;
           setGames([...games]);
         });
       alert("Game updated!");
@@ -395,6 +401,7 @@ const Edit = () => {
       multiplayer: "",
       platform: "",
       release: "",
+      image_url: "",
     });
     setSelectedId(-1);
     setOpen({ ...open, game: false });
@@ -450,6 +457,7 @@ const Edit = () => {
       multiplayer: selectedGame.multiplayer,
       platform: selectedGame.platform,
       release: selectedGame.release,
+      image_url: selectedGame.image_url,
     });
   };
 
@@ -524,6 +532,27 @@ const Edit = () => {
       minRelease: "",
       maxRelease: "",
     });
+    setOpen({ ...open, filterGame: false });
+  };
+
+  const handleSortByRating = (event) => {
+    event.preventDefault();
+    setMovies(
+      movies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
+    );
+    setOpen({ ...open, filterMovie: false });
+  };
+
+  const handleSortByYear = (event) => {
+    event.preventDefault();
+    setMovies(movies.sort((a, b) => parseFloat(b.year) - parseFloat(a.year)));
+    setOpen({ ...open, filterMovie: false });
+  };
+  const handleSortByRelease = (event) => {
+    event.preventDefault();
+    setGames(
+      games.sort((a, b) => parseFloat(b.release) - parseFloat(a.release))
+    );
     setOpen({ ...open, filterGame: false });
   };
 
@@ -690,7 +719,25 @@ const Edit = () => {
                 fullWidth
               />
             </DialogContent>
+
             <DialogActions>
+              <div className="sort">
+                <Button
+                  onClick={handleSortByRating}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Sort by Rating
+                </Button>
+                <Button
+                  onClick={handleSortByYear}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Sort by Year
+                </Button>
+              </div>
+
               <Button onClick={handleCloseFilterMovie} color="primary">
                 Cancel
               </Button>
@@ -832,6 +879,16 @@ const Edit = () => {
                   value={input.release}
                   fullWidth
                 />
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label="Image URL"
+                  type="text"
+                  name="image_url"
+                  onChange={handleChange}
+                  value={input.image_url}
+                  fullWidth
+                />
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleCloseGame} color="primary">
@@ -901,6 +958,15 @@ const Edit = () => {
               />
             </DialogContent>
             <DialogActions>
+              <div className="sort">
+                <Button
+                  onClick={handleSortByRelease}
+                  variant="contained"
+                  className={classes.button}
+                >
+                  Sort by Release
+                </Button>
+              </div>
               <Button onClick={handleCloseFilterGame} color="primary">
                 Cancel
               </Button>
@@ -921,6 +987,7 @@ const Edit = () => {
                   <TableCell align="right">Multi Player</TableCell>
                   <TableCell align="right">Platform</TableCell>
                   <TableCell align="right">Release</TableCell>
+                  <TableCell align="right">Image URL</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -957,6 +1024,7 @@ const Edit = () => {
                       <TableCell align="right">{el.multiplayer}</TableCell>
                       <TableCell align="right">{el.platform}</TableCell>
                       <TableCell align="right">{el.release}</TableCell>
+                      <TableCell align="right">{el.image_url}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>

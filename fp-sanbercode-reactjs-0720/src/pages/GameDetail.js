@@ -24,6 +24,7 @@ const GameDetail = () => {
       {game !== null && (
         <div className="content">
           <h1>{game.name}</h1>
+          <img src={game.image_url} className="imageDetail"></img>
           <h2>Genre: {game.genre}</h2>
           <h2>Single Player: {game.singlePlayer}</h2>
           <h2>Multi Player: {game.multiPlayer}</h2>
