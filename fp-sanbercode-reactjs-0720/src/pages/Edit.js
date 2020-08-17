@@ -29,6 +29,35 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+    "& label.Mui-focused": {
+      color: "white",
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: "white",
+    },
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "white",
+      },
+      "&:hover fieldset": {
+        borderColor: "white",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "white",
+      },
+    },
+  },
+  input: {
+    color: "white",
+  },
+  floatingLabelFocusStyle: {
+    color: "gray",
+  },
 }));
 
 const Edit = () => {
@@ -37,7 +66,47 @@ const Edit = () => {
   const [selectedId, setSelectedId] = useState(-1);
 
   const [movies, setMovies] = useState(null);
+  const [allMovies, setAllMovies] = useState(null);
+  const [allGames, setAllGames] = useState(null);
   useEffect(() => {
+    if (allGames === null) {
+      axios.get(`https://backendexample.sanbersy.com/api/games`).then((res) => {
+        setAllGames(
+          res.data.map((el) => {
+            return {
+              id: el.id,
+              name: el.name,
+              singlePlayer: el.singlePlayer,
+              multiplayer: el.multiplayer,
+              genre: el.genre,
+              platform: el.platform,
+              release: el.release,
+              image_url: el.image_url,
+            };
+          })
+        );
+      });
+    }
+    if (allMovies === null) {
+      axios
+        .get(`https://backendexample.sanbersy.com/api/movies`)
+        .then((res) => {
+          setAllMovies(
+            res.data.map((el) => {
+              return {
+                id: el.id,
+                title: el.title,
+                description: el.description,
+                year: el.year,
+                genre: el.genre,
+                rating: el.rating,
+                review: el.review,
+                image_url: el.image_url,
+              };
+            })
+          );
+        });
+    }
     if (movies === null) {
       axios
         .get(`https://backendexample.sanbersy.com/api/movies`)
@@ -169,6 +238,8 @@ const Edit = () => {
     filterMultiPlayer: "",
     minRelease: "",
     maxRelease: "",
+    searchMovie: "",
+    searchGame: "",
   });
   const handleChange = (event) => {
     let value = event.target.value;
@@ -299,7 +370,7 @@ const Edit = () => {
       alert("Movie added!");
     } else {
       axios
-        .put(`http://backendexample.sanbercloud.com/api/movies/${selectedId}`, {
+        .put(`https://backendexample.sanbersy.com/api/movies/${selectedId}`, {
           updated_at: date,
           title: input.title,
           description: input.description,
@@ -370,7 +441,7 @@ const Edit = () => {
       alert("Game added!");
     } else {
       axios
-        .put(`http://backendexample.sanbercloud.com/api/games/${selectedId}`, {
+        .put(`https://backendexample.sanbersy.com/api/games/${selectedId}`, {
           updated_at: date,
           name: input.name,
           genre: input.genre,
@@ -554,6 +625,33 @@ const Edit = () => {
       games.sort((a, b) => parseFloat(b.release) - parseFloat(a.release))
     );
     setOpen({ ...open, filterGame: false });
+  };
+
+  const handleChangeSearchMovie = (event) => {
+    let value = event.target.value;
+    setInput({ ...input, searchMovie: value });
+    if (value != "") {
+      setMovies(
+        allMovies.filter(
+          (el) => el.title.toLowerCase().indexOf(value.toLowerCase()) > -1
+        )
+      );
+    } else {
+      setMovies(allMovies);
+    }
+  };
+  const handleChangeSearchGame = (event) => {
+    let value = event.target.value;
+    setInput({ ...input, searchGame: value });
+    if (value != "") {
+      setGames(
+        allGames.filter(
+          (el) => el.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+        )
+      );
+    } else {
+      setGames(allGames);
+    }
   };
 
   return (
@@ -746,6 +844,23 @@ const Edit = () => {
               </Button>
             </DialogActions>
           </Dialog>
+          <div className="searchBar">
+            <TextField
+              InputLabelProps={{
+                className: classes.floatingLabelFocusStyle,
+              }}
+              InputProps={{
+                className: classes.input,
+              }}
+              color="white"
+              variant="outlined"
+              label="Search Movie"
+              type="text"
+              name="searchMovie"
+              onChange={handleChangeSearchMovie}
+              value={input.searchMovie}
+            />
+          </div>
 
           <TableContainer component={Paper} className="tableData">
             <Table className={classes.table} aria-label="simple table">
@@ -975,6 +1090,23 @@ const Edit = () => {
               </Button>
             </DialogActions>
           </Dialog>
+          <div className="searchBar">
+            <TextField
+              InputLabelProps={{
+                className: classes.floatingLabelFocusStyle,
+              }}
+              InputProps={{
+                className: classes.input,
+              }}
+              color="white"
+              variant="outlined"
+              label="Search Game"
+              type="text"
+              name="searchGame"
+              onChange={handleChangeSearchGame}
+              value={input.searchGame}
+            />
+          </div>
 
           <TableContainer component={Paper} className="tableData">
             <Table className={classes.table} aria-label="simple table">
