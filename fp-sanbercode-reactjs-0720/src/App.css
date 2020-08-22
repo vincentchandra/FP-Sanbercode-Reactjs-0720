@@ -3,6 +3,12 @@
 * {
   font-family: "Varela", sans-serif;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 body {
   color: white;
   background-color: rgb(9, 33, 63);
@@ -68,13 +74,11 @@ header nav ul li {
 }
 header nav ul li:hover {
   transition-duration: 0.1s;
-  font-size: 22px;
   color: white;
   cursor: pointer;
 }
 .link:hover {
   transition-duration: 0.1s;
-  font-size: 22px;
   color: white;
   cursor: pointer;
 }
@@ -88,11 +92,12 @@ header nav ul li:hover {
 }
 
 .Sidebar {
-  /* overflow-y: scroll; */
+  margin-bottom: -5000px;
+  top: 0;
+  position: sticky;
   align-content: center;
   box-sizing: border-box;
-  margin-top: 30px;
-  padding: 20px;
+  padding: 0 20px;
   border-right: 1px solid white;
   float: left;
   width: 20%;
@@ -111,11 +116,10 @@ header nav ul li:hover {
 }
 
 .footer {
-  float: left;
-  margin-top: 30px;
+  float: right;
+  height: 50px;
   padding-top: 10px;
   padding-bottom: 10px;
-  /* background-color: rgb(4, 21, 41); */
   background-color: rgb(7, 28, 53);
   text-align: center;
   width: 100%;
@@ -130,6 +134,7 @@ header nav ul li:hover {
 }
 .imageDetail {
   max-height: 300px;
+  max-width: 100%;
 }
 
 .sort {
@@ -191,22 +196,18 @@ header nav ul li:hover {
 .card {
   margin-top: 20px;
   border-bottom: 1px solid;
+  /* position: relative; */
 }
 
 .card img {
-  height: 400px;
+  max-height: 400px;
+  max-width: 100%;
 }
 .card .judul {
   padding: 20px 0;
   justify-content: space-between;
   display: flex;
   text-decoration: none;
-}
-.content h1 {
-  /* float: left;
-  
-  
-  */
 }
 .addMovie {
   margin-top: 23px;

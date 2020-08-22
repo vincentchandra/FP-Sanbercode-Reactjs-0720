@@ -4,11 +4,11 @@ import { UserContext } from "../context/UserContext";
 import Login from "../pages/Login";
 import Movies from "../pages/Movies";
 import Games from "../pages/Games";
-import logo from "../img/logo.png";
 import Edit from "../pages/Edit";
 import MovieDetail from "../pages/MovieDetail";
 import GameDetail from "../pages/GameDetail";
 import Account from "../pages/Account";
+import logo from "../img/logo.png";
 
 const Header = () => {
   const [user, setUser] = useContext(UserContext);

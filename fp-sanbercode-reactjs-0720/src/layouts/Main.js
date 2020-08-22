@@ -8,9 +8,9 @@ const Main = () => {
     <>
       <Router>
         <Header />
-        <Sidebar />
-        <Footer />
       </Router>
+      <Sidebar />
+      <Footer />
     </>
   );
 };

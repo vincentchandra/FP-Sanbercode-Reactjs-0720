@@ -87,8 +87,6 @@ const Account = () => {
     <div className="content">
       <h1>Account Page</h1>
       <h2>Your Username: {account.username}</h2>
-      {/* <h2>Your Password: {account.password}</h2>
-      <h2>Your ID: {account.id}</h2> */}
       <div className="changePassword">
         <h2>Change Password:</h2>
         <form
