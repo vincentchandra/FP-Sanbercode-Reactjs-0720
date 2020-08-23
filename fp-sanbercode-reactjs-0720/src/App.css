@@ -8,6 +8,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-image: url("./img/background.png");
 }
 body {
   color: white;
@@ -25,7 +26,11 @@ body {
   border: 1px solid;
 }
 header {
-  background-color: rgb(7, 28, 53);
+  background-color: none;
+  background-position: center;
+  /* background-image: url("./img/header.png"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: 100%; */
   display: flex;
   box-sizing: border-box;
   justify-content: space-between;
@@ -120,7 +125,7 @@ header nav ul li:hover {
   height: 50px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: rgb(7, 28, 53);
+  background-color: none;
   text-align: center;
   width: 100%;
 }

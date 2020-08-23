@@ -101,7 +101,7 @@ const Games = () => {
   return (
     <>
       <div className="content">
-        <div className="searchBar">
+        <div className="searchBar" className={classes.root}>
           <TextField
             InputLabelProps={{
               className: classes.floatingLabelFocusStyle,

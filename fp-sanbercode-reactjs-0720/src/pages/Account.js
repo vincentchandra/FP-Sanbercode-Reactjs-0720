@@ -5,37 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Button, TextField, makeStyles } from "@material-ui/core";
 const Account = () => {
   const [account, setAccount] = useContext(UserContext);
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      "& .MuiTextField-root": {
-        margin: theme.spacing(1),
-        width: "25ch",
-      },
-      "& label.Mui-focused": {
-        color: "white",
-      },
-      "& .MuiInput-underline:after": {
-        borderBottomColor: "white",
-      },
-      "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-          borderColor: "white",
-        },
-        "&:hover fieldset": {
-          borderColor: "white",
-        },
-        "&.Mui-focused fieldset": {
-          borderColor: "white",
-        },
-      },
-    },
-    input: {
-      color: "white",
-    },
-    floatingLabelFocusStyle: {
-      color: "gray",
-    },
-  }));
+
   const [input, setInput] = useState({
     oldPassword: "",
     newPassword: "",
@@ -82,6 +52,37 @@ const Account = () => {
     }
     setInput({ ...input, oldPassword: "", newPassword: "" });
   };
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "& .MuiTextField-root": {
+        margin: theme.spacing(1),
+        width: "25ch",
+      },
+      "& label.Mui-focused": {
+        color: "white",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "white",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "white",
+        },
+        "&:hover fieldset": {
+          borderColor: "white",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "white",
+        },
+      },
+    },
+    input: {
+      color: "white",
+    },
+    floatingLabelFocusStyle: {
+      color: "gray",
+    },
+  }));
   const classes = useStyles();
   return (
     <div className="content">
@@ -102,7 +103,6 @@ const Account = () => {
             InputProps={{
               className: classes.input,
             }}
-            color="white"
             variant="outlined"
             label="Old Password"
             type="text"
