@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,6 +12,10 @@ import {
 import { TextField, makeStyles } from "@material-ui/core";
 
 const Games = () => {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  });
   const [games, setGames] = useState(null);
   useEffect(() => {
     if (games === null) {
@@ -123,7 +129,11 @@ const Games = () => {
           games.map((el) => {
             return (
               <>
-                <div className="card">
+                <div
+                  className="card"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                >
                   <div className="cardHead">
                     <Link className="detail" to={`/games/${el.id}`}>
                       <img src={el.image_url}></img>

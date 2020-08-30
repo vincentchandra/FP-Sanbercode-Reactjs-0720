@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MovieDetail from "./MovieDetail";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,9 +14,14 @@ import {
 import { TextField, makeStyles } from "@material-ui/core";
 
 const Movies = () => {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  });
   const [movies, setMovies] = useState(null);
   useEffect(() => {
     if (movies === null) {
+      // sanbercode API
       axios
         .get(`https://backendexample.sanbersy.com/api/movies`)
         .then((res) => {
@@ -32,6 +40,23 @@ const Movies = () => {
             })
           );
         });
+      // MY LOCAL API
+      // let a = axios.get(`http://localhost:3000/posts`).then((res) => {
+      //   setMovies(
+      //     res.data.map((el) => {
+      //       return {
+      //         id: el.id,
+      //         title: el.title,
+      //         description: el.description,
+      //         year: el.year,
+      //         genre: el.genre,
+      //         rating: el.rating,
+      //         review: el.review,
+      //         image_url: el.image_url,
+      //       };
+      //     })
+      //   );
+      // });
     }
   });
   const useStyles = makeStyles((theme) => ({
@@ -130,7 +155,11 @@ const Movies = () => {
           movies.map((el) => {
             return (
               <>
-                <div className="card">
+                <div
+                  className="card"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                >
                   <div className="cardHead">
                     <Link className="detail" to={`/movies/${el.id}`}>
                       <img src={el.image_url}></img>
